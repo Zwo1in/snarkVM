@@ -1,7 +1,7 @@
 [package]
 name = "snarkvm-fields"
 version = "0.9.0"
-authors = [ "The Aleo Team <hello@aleo.org>" ]
+authors = ["The Aleo Team <hello@aleo.org>"]
 description = "Fields for a decentralized virtual machine"
 homepage = "https://aleo.org"
 repository = "https://github.com/AleoHQ/snarkVM"
@@ -10,16 +10,16 @@ keywords = [
   "cryptography",
   "blockchain",
   "decentralized",
-  "zero-knowledge"
+  "zero-knowledge",
 ]
 categories = [
   "compilers",
   "cryptography",
   "mathematics",
   "wasm",
-  "web-programming"
+  "web-programming",
 ]
-include = [ "Cargo.toml", "src", "README.md", "LICENSE.md" ]
+include = ["Cargo.toml", "src", "README.md", "LICENSE.md"]
 license = "GPL-3.0"
 edition = "2021"
 
@@ -55,12 +55,12 @@ optional = true
 [dependencies.serde]
 version = "1.0"
 default-features = false
-features = [ "derive" ]
+features = ["derive"]
 
 [dependencies.thiserror]
 version = "1.0"
 
 [features]
-default = [ "parallel", "snarkvm-utilities/default" ]
-parallel = [ "rayon", "snarkvm-utilities/parallel" ]
-profiler = [ "aleo-std/profiler" ]
+default = ["parallel", "snarkvm-utilities/default"]
+parallel = ["rayon", "snarkvm-utilities/parallel"]
+profiler = ["aleo-std/profiler"]

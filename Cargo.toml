@@ -1,7 +1,7 @@
 [package]
 name = "snarkvm"
 version = "0.9.0"
-authors = [ "The Aleo Team <hello@aleo.org>" ]
+authors = ["The Aleo Team <hello@aleo.org>"]
 description = "A decentralized virtual machine"
 homepage = "https://aleo.org"
 repository = "https://github.com/AleoHQ/snarkVM"
@@ -10,16 +10,16 @@ keywords = [
   "cryptography",
   "blockchain",
   "decentralized",
-  "zero-knowledge"
+  "zero-knowledge",
 ]
 categories = [
   "compilers",
   "cryptography",
   "mathematics",
   "wasm",
-  "web-programming"
+  "web-programming",
 ]
-include = [ "Cargo.toml", "vm", "README.md", "LICENSE.md" ]
+include = ["Cargo.toml", "vm", "README.md", "LICENSE.md"]
 license = "GPL-3.0"
 edition = "2021"
 
@@ -65,7 +65,7 @@ members = [
   "utilities",
   "utilities/derives",
   "vm/compiler",
-  "wasm"
+  "wasm",
 ]
 
 [lib]
@@ -74,10 +74,10 @@ path = "vm/lib.rs"
 [[bin]]
 name = "vm"
 path = "vm/cli/main.rs"
-required-features = [ "cli" ]
+required-features = ["cli"]
 
 [features]
-default = [ "cli", "parallel", "parameters" ]
+default = ["cli", "parallel", "parameters"]
 full = [
   "algorithms",
   "circuit",
@@ -87,7 +87,7 @@ full = [
   "parameters",
   "r1cs",
   "rest",
-  "utilities"
+  "utilities",
 ]
 cli = [
   "anyhow",
@@ -98,27 +98,27 @@ cli = [
   "rand",
   "self_update",
   "serde_json",
-  "thiserror"
+  "thiserror",
 ]
-aleo-cli = [ "snarkvm-compiler/aleo-cli" ]
-algorithms = [ "snarkvm-algorithms" ]
-circuit = [ "snarkvm-circuit" ]
-console = [ "snarkvm-console" ]
-curves = [ "snarkvm-curves" ]
-fields = [ "snarkvm-fields" ]
-parameters = [ "snarkvm-parameters" ]
-r1cs = [ "snarkvm-r1cs" ]
-rest = [ "snarkvm-rest" ]
-utilities = [ "snarkvm-utilities" ]
-cuda = [ "snarkvm-algorithms/cuda" ]
-parameters_no_std_out = [ "snarkvm-parameters/no_std_out" ]
+aleo-cli = ["snarkvm-compiler/aleo-cli"]
+algorithms = ["snarkvm-algorithms"]
+circuit = ["snarkvm-circuit"]
+console = ["snarkvm-console"]
+curves = ["snarkvm-curves"]
+fields = ["snarkvm-fields"]
+parameters = ["snarkvm-parameters"]
+r1cs = ["snarkvm-r1cs"]
+rest = ["snarkvm-rest"]
+utilities = ["snarkvm-utilities"]
+cuda = ["snarkvm-algorithms/cuda"]
+parameters_no_std_out = ["snarkvm-parameters/no_std_out"]
 parallel = [
   "rayon",
   "snarkvm-compiler/parallel",
   "snarkvm-fields/parallel",
-  "snarkvm-utilities/parallel"
+  "snarkvm-utilities/parallel",
 ]
-noconfig = [ ]
+noconfig = []
 
 [dependencies.snarkvm-algorithms]
 path = "./algorithms"
@@ -144,6 +144,7 @@ optional = true
 path = "./fields"
 version = "0.9.0"
 optional = true
+default-features = false
 
 [dependencies.snarkvm-parameters]
 path = "./parameters"
@@ -168,6 +169,7 @@ optional = true
 [dependencies.snarkvm-compiler]
 path = "./vm/compiler"
 version = "0.9.0"
+default-features = false
 
 [dependencies.anyhow]
 version = "1.0.64"
@@ -175,7 +177,7 @@ optional = true
 
 [dependencies.clap]
 version = "3.2"
-features = [ "derive" ]
+features = ["derive"]
 optional = true
 
 [dependencies.colored]
@@ -184,7 +186,7 @@ optional = true
 
 [dependencies.indexmap]
 version = "1.8"
-features = [ "rayon" ]
+features = ["rayon"]
 
 [dependencies.once_cell]
 version = "1.13"
@@ -214,7 +216,7 @@ optional = true
 
 [dependencies.ureq]
 version = "2.5"
-features = [ "json" ]
+features = ["json"]
 
 [dev-dependencies.bincode]
 version = "1.3"
