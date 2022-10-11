@@ -1,7 +1,7 @@
 [package]
 name = "snarkvm-console-collections"
 version = "0.9.0"
-authors = [ "The Aleo Team <hello@aleo.org>" ]
+authors = ["The Aleo Team <hello@aleo.org>"]
 description = "Collections for a decentralized virtual machine"
 license = "GPL-3.0"
 edition = "2021"
@@ -19,11 +19,10 @@ version = "0.9.0"
 path = "../types"
 version = "0.9.0"
 default-features = false
-features = [ "field", "integers" ]
+features = ["field", "integers"]
 
 [dependencies.aleo-std]
-git = "https://github.com/ljedrz/aleo-std.git"
-branch = "granular_features"
+version = "0.1.15"
 default-features = false
 
 [dependencies.rayon]
@@ -37,5 +36,5 @@ path = "../network"
 version = "0.3.5"
 
 [features]
-default = [ "parallel" ]
-parallel = [ "rayon" ]
+default = ["parallel"]
+parallel = ["rayon"]

@@ -1,7 +1,7 @@
 [package]
 name = "snarkvm-utilities"
 version = "0.9.0"
-authors = [ "The Aleo Team <hello@aleo.org>" ]
+authors = ["The Aleo Team <hello@aleo.org>"]
 description = "Utilities for a decentralized virtual machine"
 homepage = "https://aleo.org"
 repository = "https://github.com/AleoHQ/snarkVM"
@@ -10,16 +10,16 @@ keywords = [
   "cryptography",
   "blockchain",
   "decentralized",
-  "zero-knowledge"
+  "zero-knowledge",
 ]
 categories = [
   "compilers",
   "cryptography",
   "mathematics",
   "wasm",
-  "web-programming"
+  "web-programming",
 ]
-include = [ "Cargo.toml", "src", "README.md", "LICENSE.md" ]
+include = ["Cargo.toml", "src", "README.md", "LICENSE.md"]
 license = "GPL-3.0"
 edition = "2021"
 
@@ -29,8 +29,7 @@ version = "0.9.0"
 optional = true
 
 [dependencies.aleo-std]
-git = "https://github.com/ljedrz/aleo-std.git"
-branch = "granular_features"
+version = "0.1.15"
 optional = true
 default-features = false
 
@@ -50,7 +49,7 @@ version = "0.4"
 [dependencies.rand]
 version = "0.8"
 default-features = false
-features = [ "getrandom", "std_rng" ]
+features = ["getrandom", "std_rng"]
 
 [dependencies.rayon]
 version = "1"
@@ -68,7 +67,7 @@ version = "0.3"
 default-features = false
 
 [features]
-default = [ "std", "derive" ]
-std = [ ]
-derive = [ "snarkvm-utilities-derives" ]
-parallel = [ "rayon", "num_cpus" ]
+default = ["std", "derive"]
+std = []
+derive = ["snarkvm-utilities-derives"]
+parallel = ["rayon", "num_cpus"]

@@ -1,7 +1,7 @@
 [package]
 name = "snarkvm-algorithms"
 version = "0.9.0"
-authors = [ "The Aleo Team <hello@aleo.org>" ]
+authors = ["The Aleo Team <hello@aleo.org>"]
 description = "Algorithms for a decentralized virtual machine"
 homepage = "https://aleo.org"
 repository = "https://github.com/AleoHQ/snarkVM"
@@ -10,16 +10,16 @@ keywords = [
   "cryptography",
   "blockchain",
   "decentralized",
-  "zero-knowledge"
+  "zero-knowledge",
 ]
 categories = [
   "compilers",
   "cryptography",
   "mathematics",
   "wasm",
-  "web-programming"
+  "web-programming",
 ]
-include = [ "Cargo.toml", "src", "README.md", "LICENSE.md" ]
+include = ["Cargo.toml", "src", "README.md", "LICENSE.md"]
 license = "GPL-3.0"
 edition = "2021"
 
@@ -70,8 +70,7 @@ version = "0.9.0"
 default-features = false
 
 [dependencies.aleo-std]
-git = "https://github.com/ljedrz/aleo-std.git"
-branch = "granular_features"
+version = "0.1.15"
 default-features = false
 
 [dependencies.anyhow]
@@ -120,7 +119,7 @@ optional = true
 [dependencies.serde]
 version = "1.0"
 default-features = false
-features = [ "derive" ]
+features = ["derive"]
 
 [dependencies.sha2]
 version = "0.10"
@@ -129,7 +128,7 @@ default-features = false
 [dependencies.smallvec]
 version = "1.8"
 default-features = false
-features = [ "const_generics", "const_new" ]
+features = ["const_generics", "const_new"]
 
 [dependencies.thiserror]
 version = "1.0"
@@ -160,9 +159,9 @@ default = [
   "snarkvm-curves/default",
   "snarkvm-fields/default",
   "snarkvm-r1cs/default",
-  "snarkvm-utilities/default"
+  "snarkvm-utilities/default",
 ]
-full = [ "crypto_hash", "fft", "msm", "polycommit_full", "snark" ]
+full = ["crypto_hash", "fft", "msm", "polycommit_full", "snark"]
 wasm = [
   "crypto_hash",
   "fft",
@@ -171,15 +170,11 @@ wasm = [
   "snark",
   "wasm-bindgen-futures",
 ]
-parallel = [
-  "rayon",
-  "snarkvm-fields/parallel",
-  "snarkvm-utilities/parallel"
-]
-crypto_hash = [ ]
-fft = [ ]
-msm = [ ]
-polycommit = [ "rand_core", "fft", "msm" ]
-polycommit_wasm = [ "polycommit", "snarkvm-parameters/wasm" ]
-polycommit_full = [ "polycommit", "snarkvm-parameters" ]
-snark = [ "crypto_hash", "fft", "msm", "polycommit" ]
+parallel = ["rayon", "snarkvm-fields/parallel", "snarkvm-utilities/parallel"]
+crypto_hash = []
+fft = []
+msm = []
+polycommit = ["rand_core", "fft", "msm"]
+polycommit_wasm = ["polycommit", "snarkvm-parameters/wasm"]
+polycommit_full = ["polycommit", "snarkvm-parameters"]
+snark = ["crypto_hash", "fft", "msm", "polycommit"]
