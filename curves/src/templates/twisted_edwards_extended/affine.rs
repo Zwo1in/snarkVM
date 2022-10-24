@@ -25,10 +25,7 @@ use snarkvm_utilities::{
     io::{Read, Result as IoResult, Write},
     rand::Uniform,
     serialize::*,
-    FromBytes,
-    ToBits,
-    ToBytes,
-    ToMinimalBits,
+    FromBytes, ToBits, ToBytes, ToMinimalBits,
 };
 
 use core::{
@@ -118,7 +115,11 @@ impl<P: Parameters> AffineCurve for Affine<P> {
     fn from_random_bytes(bytes: &[u8]) -> Option<Self> {
         Self::BaseField::from_random_bytes_with_flags::<EdwardsFlags>(bytes).and_then(|(x, flags)| {
             // If x is valid and is zero, then parse this point as infinity.
-            if x.is_zero() { Some(Self::zero()) } else { Self::from_x_coordinate(x, flags.is_positive()) }
+            if x.is_zero() {
+                Some(Self::zero())
+            } else {
+                Self::from_x_coordinate(x, flags.is_positive())
+            }
         })
     }
 
@@ -139,6 +140,26 @@ impl<P: Parameters> AffineCurve for Affine<P> {
             let negy = -y;
             let y = if (y < negy) ^ greatest { y } else { negy };
             Self::new(x, y, x * y)
+        })
+    }
+
+    /// Attempts to construct an affine point given an x-coordinate. The
+    /// point is not guaranteed to be in the prime order subgroup.
+    /// Returns variants with and without the lexicographically largest
+    /// y-coordinate be selected.
+    #[inline]
+    fn from_x_coordinate_variants(x: Self::BaseField) -> Option<(Self, Self)> {
+        // y = sqrt( (a * x^2 - 1)  / (d * x^2 - 1) )
+        let x2 = x.square();
+        let one = Self::BaseField::one();
+        let numerator = P::mul_by_a(&x2) - one;
+        let denominator = P::EDWARDS_D * x2 - one;
+        let y2 = denominator.inverse().map(|denom| denom * numerator);
+        y2.and_then(|y2| y2.sqrt()).map(|y| {
+            let negy = -y;
+            let y1 = if (y < negy) ^ false { y } else { negy };
+            let y2 = if (y < negy) ^ true { y } else { negy };
+            (Self::new(x, y1, x * y1), Self::new(x, y2, x * y2))
         })
     }
 

@@ -25,10 +25,7 @@ use snarkvm_utilities::{
     io::{Error, ErrorKind, Read, Result as IoResult, Write},
     rand::Uniform,
     serialize::*,
-    FromBytes,
-    ToBits,
-    ToBytes,
-    ToMinimalBits,
+    FromBytes, ToBits, ToBytes, ToMinimalBits,
 };
 
 use core::{
@@ -76,7 +73,11 @@ impl<P: Parameters> Default for Affine<P> {
 
 impl<P: Parameters> Display for Affine<P> {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
-        if self.infinity { write!(f, "Affine(Infinity)") } else { write!(f, "Affine(x={}, y={})", self.x, self.y) }
+        if self.infinity {
+            write!(f, "Affine(Infinity)")
+        } else {
+            write!(f, "Affine(x={}, y={})", self.x, self.y)
+        }
     }
 }
 
@@ -139,6 +140,23 @@ impl<P: Parameters> AffineCurve for Affine<P> {
 
             let y = if (y < negy) ^ greatest { y } else { negy };
             Self::new(x, y, false)
+        })
+    }
+
+    /// Attempts to construct an affine point given an x-coordinate. The
+    /// point is not guaranteed to be in the prime order subgroup.
+    /// Returns variants with and without the lexicographically largest
+    /// y-coordinate be selected.
+    fn from_x_coordinate_variants(x: Self::BaseField) -> Option<(Self, Self)> {
+        // Compute x^3 + ax + b
+        let x3b = P::add_b(&((x.square() * x) + P::mul_by_a(&x)));
+
+        x3b.sqrt().map(|y| {
+            let negy = -y;
+
+            let y1 = if (y < negy) ^ false { y } else { negy };
+            let y2 = if (y < negy) ^ true { y } else { negy };
+            (Self::new(x, y1, false), Self::new(x, y2, false))
         })
     }
 
@@ -268,7 +286,11 @@ impl<P: Parameters> Neg for Affine<P> {
 
     #[inline]
     fn neg(self) -> Self {
-        if !self.is_zero() { Self::new(self.x, -self.y, false) } else { self }
+        if !self.is_zero() {
+            Self::new(self.x, -self.y, false)
+        } else {
+            self
+        }
     }
 }
 
