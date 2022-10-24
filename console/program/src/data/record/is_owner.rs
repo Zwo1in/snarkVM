@@ -29,13 +29,9 @@ impl<N: Network> Record<N, Ciphertext<N>> {
                 // Compute the 0th randomizer.
                 let randomizer = N::hash_many_psd8(&[N::encryption_domain(), record_view_key], 1);
                 // Decrypt the owner.
-                match Address::from_field(&(ciphertext[0] - randomizer[0])) {
-                    Ok(owner) => &owner == address,
-                    Err(error) => {
-                        eprintln!("Failed to decrypt the record owner: {error}");
-                        false
-                    }
-                }
+                let owner_x = ciphertext[0] - randomizer[0];
+                // Compare the x coordinates of computed and supplied affines.
+                owner_x == address.to_x_coordinate()
             }
         }
     }
