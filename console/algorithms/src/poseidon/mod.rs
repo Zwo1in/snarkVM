@@ -137,21 +137,11 @@ mod tests {
 
         for absorb in 0..10 {
             for squeeze in 0..10 {
-                let iteration = format!("absorb_{absorb}_squeeze_{squeeze}");
-
                 let mut sponge = PoseidonSponge::<CurrentEnvironment, RATE, CAPACITY>::new(&parameters);
                 sponge.absorb(&vec![Field::<CurrentEnvironment>::from_u64(1237812u64); absorb]);
 
-                let next_absorb_index = if absorb % RATE != 0 || absorb == 0 { absorb % RATE } else { RATE };
-                assert_eq!(sponge.mode, DuplexSpongeMode::Absorbing { next_absorb_index }, "{iteration}");
-
+                let iteration = format!("absorb_{absorb}_squeeze_{squeeze}");
                 assert_snapshot("test_sponge", &iteration, sponge.squeeze(u16::try_from(squeeze).unwrap()));
-
-                let next_squeeze_index = if squeeze % RATE != 0 || squeeze == 0 { squeeze % RATE } else { RATE };
-                match squeeze == 0 {
-                    true => assert_eq!(sponge.mode, DuplexSpongeMode::Absorbing { next_absorb_index }, "{iteration}"),
-                    false => assert_eq!(sponge.mode, DuplexSpongeMode::Squeezing { next_squeeze_index }, "{iteration}"),
-                }
             }
         }
     }

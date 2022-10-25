@@ -40,18 +40,3 @@ pub trait AlgebraicSponge<E: Environment, const RATE: usize, const CAPACITY: usi
     /// Squeeze `num_elements` field elements from the sponge.
     fn squeeze(&mut self, num_elements: u16) -> SmallVec<[Field<E>; 10]>;
 }
-
-/// The mode structure for duplex sponges.
-#[derive(PartialEq, Eq, Clone, Debug)]
-pub enum DuplexSpongeMode {
-    /// The sponge is currently absorbing data.
-    Absorbing {
-        /// The next position of the state to be XOR-ed when absorbing.
-        next_absorb_index: usize,
-    },
-    /// The sponge is currently squeezing data out.
-    Squeezing {
-        /// The next position of the state to be outputted when squeezing.
-        next_squeeze_index: usize,
-    },
-}
